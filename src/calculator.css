@@ -1,0 +1,19 @@
+.calculator {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+  }
+  
+  .keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+  }
+  
