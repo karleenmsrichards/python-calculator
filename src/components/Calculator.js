@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const Calculator = () => {
 
+  const [isClicked, setIsClicked] = useState(false);
   const [display, setDisplay] = useState("");
-  const [expression, setExprression] = useState("")
+  const [expression, setExpression] = useState("")
   const [operator, setOperator] = useState("");
   const [result, setResult] = useState("");
   const [num1, setNum1] = useState("");
@@ -16,15 +17,26 @@ export const Calculator = () => {
   }
 
   const handleClick = (e) => {
-    setExprression(expression.concat(e.target.name))
-    setDisplay(expression);
+    if (operator === "" && !isClicked) {
+      setExpression(prevExpression => prevExpression.concat(e.target.name));
+    } 
+    if (operator !== "" && !isClicked) {
+      setExpression(prevExpression => prevExpression.concat(e.target.name));
+    } 
   }
+  
+  useEffect(() => {
+    setDisplay(expression);
+  }, [expression]); 
 
   const handleOperatorClick = (e) => {
-    setNum1(display);
-    setDisplay("");
-    setOperator(e.target.value);
+    setNum1(expression);
+    setExpression("");
+    setOperator(e.target.name);
   }
+
+  useEffect(() => {
+}, [num1, display, operator]);
 
   const calculate = (e) => {
     setNum2(display);
@@ -37,8 +49,8 @@ export const Calculator = () => {
         <div className="keypad">
           <button className="clear-btn" onClick={clear}>Clear</button>
           <button name="/" onClick={handleOperatorClick}>/</button>
-          <button name="7" onClick={handleClick} >7</button>
-          <button name="8" >8</button>
+          <button name="7" onClick={handleClick}>7</button>
+          <button name="8" onClick={handleClick}>8</button>
           <button name="9" >9</button>
           <button name="*" >*</button>
           <button name="4" >4</button>
